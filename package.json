@@ -11,7 +11,11 @@
     "@chakra-ui/core": "^0.7.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "apollo-server-micro": "^2.13.0",
+    "connect": "^3.7.0",
+    "cors": "^2.8.5",
     "emotion-theming": "^10.0.27",
+    "lodash": "^4.17.15",
     "next": "9.3.6",
     "react": "16.13.1",
     "react-dom": "16.13.1"
