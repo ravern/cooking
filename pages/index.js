@@ -1,8 +1,11 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
-export default function Home() {
+import Layout from '../components/layout';
+
+export default function LandingPage() {
   return (
-    <div className="container">
-    </div>
-  )
+    <Layout>
+      Hello, world!
+    </Layout>
+  );
 }
