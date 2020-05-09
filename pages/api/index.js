@@ -43,10 +43,15 @@ const resolvers = {
       const allFavouritePosts = data
         .filter(post => post.ravernStuff && post.ravernStuff.favourite)
         .map(transformPost);
-      const firstPost = allFavouritePosts[Math.floor(Math.random() * allFavouritePosts.length)];
-      const secondPost = allFavouritePosts[Math.floor(Math.random() * allFavouritePosts.length)];
-      const thirdPost = allFavouritePosts[Math.floor(Math.random() * allFavouritePosts.length)];
-      return [firstPost, secondPost, thirdPost];
+      return [null, null, null].reduce((posts) => {
+        while (true) {
+          const post = allFavouritePosts[Math.floor(Math.random() * allFavouritePosts.length)];
+          console.log(post);
+          if (!find(posts, { id: post.id })) {
+            return [...posts, post];
+          }
+        }
+      }, []);
     }
   }
 };
