@@ -1,6 +1,7 @@
+const withImages = require('next-images');
 const path = require('path');
 
-module.exports = {
+module.exports = withImages({
   exclude: path.resolve(__dirname, 'assets/svg'),
   webpack(config) {
     config.module.rules.push({
@@ -13,4 +14,4 @@ module.exports = {
 
     return config;
   },
-};
+});
