@@ -43,6 +43,7 @@ export default function Header() {
                 <Box><Link href="/breakfast" passHref><NavAnchor>Breakfast</NavAnchor></Link></Box>
                 <Box><Link href="/mains" passHref><NavAnchor>Mains</NavAnchor></Link></Box>
                 <Box><Link href="/desserts" passHref><NavAnchor>Desserts</NavAnchor></Link></Box>
+                <Box><Link href="/recipes" passHref><NavAnchor>Recipes</NavAnchor></Link></Box>
                 <Box><Link href="/about" passHref><NavAnchor>About</NavAnchor></Link></Box>
               </Stack>
             </DrawerHeader>
@@ -58,6 +59,7 @@ export default function Header() {
           <Link href="/breakfast" passHref><NavAnchor>Breakfast</NavAnchor></Link>
           <Link href="/mains" passHref><NavAnchor>Mains</NavAnchor></Link>
           <Link href="/desserts" passHref><NavAnchor>Desserts</NavAnchor></Link>
+          <Link href="/recipes" passHref><NavAnchor>Recipes</NavAnchor></Link>
           <Link href="/about" passHref><NavAnchor>About</NavAnchor></Link>
         </Flex>
       </Stack>
