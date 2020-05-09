@@ -17,7 +17,7 @@ import styled from '@emotion/styled';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import {useRef} from 'react';
 
-import Logo from '../assets/logo.svg';
+import Logo from '../assets/svg/logo.svg';
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();

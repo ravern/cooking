@@ -1,4 +1,7 @@
+const path = require('path');
+
 module.exports = {
+  exclude: path.resolve(__dirname, 'assets/svg'),
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
