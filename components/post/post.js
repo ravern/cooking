@@ -39,9 +39,9 @@ export default function Post({ postID }) {
         </AspectRatioBox>
         <Heading as="h1">{post.name}</Heading>
         <Text>{post.description}</Text>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2} flexWrap="wrap">
           {post.tags.map(tag => (
-            <Tag key={tag}>{tag}</Tag>
+            <Tag key={tag} mb={2}>{tag}</Tag>
           ))}
         </Stack>
       </Stack>
