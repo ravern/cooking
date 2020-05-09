@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Flex, Image, Text, Box, Stack } from '@chakra-ui/core';
+import { Flex, Image, Text, Box, Stack, AspectRatioBox } from '@chakra-ui/core';
 
 import Layout from '../components/layout';
 import Banner from '../components/landing/banner';
@@ -10,7 +10,7 @@ export default function AboutPage() {
   return (
     <Layout>
       <Stack spacing={4}>
-        <Flex justify="center"><Image src={BioPhoto} w="100%" maxW="xl" /></Flex>
+        <Flex direction="column" align="center" px={[4, 16, 32]}><Image src={BioPhoto} objectFit="contain" /></Flex>
         <Text>Jenny is the long term title holder of Life's reality cooking show, Chefs with Love.  She is a chef, stay home mom, loving daughter, wife and mother.</Text>
         <Text>She has been featured across the lives of her family showcasing the never-ending motherly love she has for her children in times of happiness, sadness, and togetherness.</Text>
         <Text>Being an avid cook, Jenny develops many Instagram posts sharing her amazing culinary skills with her beloved friends, making them jealous of the way she spreads her love to her children in the form of their favourite foods.</Text>
