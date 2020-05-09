@@ -1,4 +1,7 @@
 import find from 'lodash/find';
+import lowerCase from 'lodash/lowerCase';
+import replace from 'lodash/replace';
+import map from 'lodash/map';
 import intersection from 'lodash/intersection';
 import isEmpty from 'lodash/isEmpty';
 import { ApolloServer, gql } from "apollo-server-micro";
@@ -40,7 +43,10 @@ const resolvers = {
       } else {
         return data
           .map(transformPost)
-          .filter(post => !isEmpty(intersection(post.tags, tags)));
+          .filter(post => !isEmpty(intersection(
+            map(post.tags, tag => replace(lowerCase(tag), ' ', '')),
+            map(tags, tag => replace(lowerCase(tag), ' ', '')),
+          )));
       }
     },
     post: (_obj, { id }) => {
