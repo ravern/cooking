@@ -22,7 +22,7 @@ export default function BannerPost({ post }) {
             >
             </PseudoBox>
           </AspectRatioBox>
-          <Text>{post.name}</Text>
+          <Text mt={2} fontWeight="bold" fontSize="lg">{post.name}</Text>
         </a>
       </Link>
     </Box>

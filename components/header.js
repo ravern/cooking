@@ -17,6 +17,8 @@ import styled from '@emotion/styled';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import {useRef} from 'react';
 
+import Logo from '../assets/logo.svg';
+
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -25,7 +27,8 @@ export default function Header() {
 
   return (
     <Box pb={8}>
-      <Flex direction="row" justify="flex-end" display={["flex", "flex", "none"]}>
+      <Flex pl={2} direction="row" justify="space-between" align="center" display={["flex", "flex", "none"]}>
+        <Logo />
         <Button ref={btnRef} onClick={onOpen}><Box as={GiHamburgerMenu} size={4} /></Button>
         <Drawer
           isOpen={isOpen}
@@ -48,7 +51,10 @@ export default function Header() {
           </DrawerContent>
         </Drawer>
       </Flex>
-      <Flex direction="column" display={["none", "none", "flex"]}>
+      <Stack display={["none", "none", "flex"]} spacing={4}>
+        <Flex direction="column" align="center">
+          <Logo />
+        </Flex>
         <Flex px={24} py={4} justify="space-between">
           <Link href="/" passHref><NavAnchor>Home</NavAnchor></Link>
           <Link href="/" passHref><NavAnchor>Breakfast</NavAnchor></Link>
@@ -56,11 +62,12 @@ export default function Header() {
           <Link href="/" passHref><NavAnchor>Desserts</NavAnchor></Link>
           <Link href="/" passHref><NavAnchor>Recipes</NavAnchor></Link>
         </Flex>
-      </Flex>
+      </Stack>
     </Box>
   );
 }
 
 const NavAnchor = styled.a`
   text-transform: uppercase;
+  font-weight: normal;
 `;

@@ -43,7 +43,7 @@ const resolvers = {
       const allFavouritePosts = data
         .filter(post => post.ravernStuff && post.ravernStuff.favourite)
         .map(transformPost);
-      return [null, null, null].reduce((posts) => {
+      return [null, null, null, null].reduce((posts) => {
         while (true) {
           const post = allFavouritePosts[Math.floor(Math.random() * allFavouritePosts.length)];
           console.log(post);
