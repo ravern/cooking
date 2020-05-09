@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }) {
         }}>
           <Head>
             <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
-            <title>Jenny's Cafe</title>
+            <title>Jenny's Cooking</title>
           </Head>
           <CSSReset />
           <Global styles={css`

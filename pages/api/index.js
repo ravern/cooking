@@ -1,4 +1,6 @@
 import find from 'lodash/find';
+import intersection from 'lodash/intersection';
+import isEmpty from 'lodash/isEmpty';
 import { ApolloServer, gql } from "apollo-server-micro";
 import connect from "connect";
 import cors from "cors";
@@ -13,7 +15,7 @@ export const config = {
 
 const typeDefs = gql`
   type Query {
-    posts: [Post!]!
+    posts(tags: [String!]): [Post!]!
     post(id: ID): Post
     favouritePosts: [Post!]!
   }
@@ -30,10 +32,16 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    posts: () => {
-      return data
-        .filter(post => post.ravernStuff)
-        .map(transformPost);
+    posts: (_obj, { tags }) => {
+      if (!tags) {
+        return data
+          .filter(post => post.ravernStuff)
+          .map(transformPost);
+      } else {
+        return data
+          .map(transformPost)
+          .filter(post => !isEmpty(intersection(post.tags, tags)));
+      }
     },
     post: (_obj, { id }) => {
       const post = find(data, { id });

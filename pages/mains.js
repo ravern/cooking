@@ -5,13 +5,19 @@ import Layout from '../components/layout';
 import Banner from '../components/landing/banner';
 import Posts from '../components/posts';
 
-export default function LandingPage() {
+export default function MainsPage() {
   return (
     <Layout>
-      <Stack spacing={8}>
-        <Box><Banner /></Box>
-        <Box><Posts title="All posts" /></Box>
-      </Stack>
+      <Posts
+        title="Mains"
+        tags={[
+          "fullmeal",
+          "chicken",
+          "fish",
+          "rösti",
+          "potato",
+        ]}
+      />
     </Layout>
   );
 }

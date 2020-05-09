@@ -8,6 +8,7 @@ export default function BannerPost({ post }) {
         <a>
           <AspectRatioBox
             bgImg={`url(${post.images[0]})`}
+            bg="gray.300"
             bgSize="cover"
             bgPos="center"
             ratio={1}
