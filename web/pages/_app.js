@@ -12,28 +12,29 @@ const client = new ApolloClient({
 
 export default function App({ Component, pageProps }) {
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider>
-        <ThemeProvider theme={{
-          fonts: {
-            body: 'Lato, sans-serif',
-            heading: 'Lato, sans-serif',
-          }
-        }}>
-          <Head>
-            <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
-            <img src="https://counter.alles.cx/jennys-cooking" style={{width: 0, height: 0}} />
-            <title>Jenny's Cooking</title>
-          </Head>
-          <CSSReset />
-          <Global styles={css`
-            body {
-              background-color: #f9f9f9;
+    <>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+        <title>Jenny's Cooking</title>
+      </Head>
+      <ApolloProvider client={client}>
+        <ThemeProvider>
+          <ThemeProvider theme={{
+            fonts: {
+              body: 'Lato, sans-serif',
+              heading: 'Lato, sans-serif',
             }
-          `} />
-          <Component {...pageProps} />
+          }}>
+            <CSSReset />
+            <Global styles={css`
+              body {
+                background-color: #f9f9f9;
+              }
+            `} />
+            <Component {...pageProps} />
+          </ThemeProvider>
         </ThemeProvider>
-      </ThemeProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </>
   );
 }
