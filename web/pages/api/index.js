@@ -7,14 +7,11 @@ import isEmpty from 'lodash/isEmpty';
 import { ApolloServer, gql } from "apollo-server-micro";
 import connect from "connect";
 import cors from "cors";
+import dotenv from "dotenv";
 
 import data from "../../data/iteration-1.json";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+dotenv.config();
 
 const typeDefs = gql`
   type Query {
@@ -89,3 +86,9 @@ app.use(cors());
 app.use(server.createHandler({ path: "/api" }));
 
 export default app;
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
