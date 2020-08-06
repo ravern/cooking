@@ -4,7 +4,7 @@ exports.up = (knex) => {
     t.text("name").notNullable();
     t.text("description").notNullable();
     t.json("images").notNullable();
-    t.timestamps();
+    t.timestamps(true, true);
   });
 };
 
