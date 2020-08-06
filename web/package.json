@@ -1,11 +1,12 @@
 {
-  "name": "cafe",
+  "name": "@ravern/cooking",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint src/"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
@@ -28,7 +29,16 @@
     "react-icons": "^3.10.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.1",
     "@svgr/webpack": "^5.4.0",
-    "next-images": "^1.4.0"
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "next-images": "^1.4.0",
+    "prettier": "^2.0.5"
   }
 }
