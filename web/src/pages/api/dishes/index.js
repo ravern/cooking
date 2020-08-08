@@ -1,12 +1,16 @@
-import { wrap } from "async-middleware";
 import connect from "connect";
 
+import createDish from "~/api/handlers/createDish";
 import getDishes from "~/api/handlers/getDishes";
-import methods from "~/api/middleware/methods";
+import router from "~/api/middleware/router";
 
 const handler = connect();
 
-handler.use(methods(["GET"]));
-handler.use(wrap(getDishes));
+handler.use(
+  router({
+    GET: getDishes,
+    POST: createDish,
+  })
+);
 
 export default handler;
