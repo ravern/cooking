@@ -1,7 +1,7 @@
 import unfetch from "isomorphic-unfetch";
 
 export default async function fetch(path, config = {}) {
-  const res = await unfetch(`${process.env.API_URL}${path}`, {
+  const res = await unfetch(`${process.env.BASE_URL}/api${path}`, {
     ...config,
     headers: {
       ...config.headers,
