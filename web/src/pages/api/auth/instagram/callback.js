@@ -1,4 +1,5 @@
 import connect from "connect";
+import Cookies from "cookies";
 import unfetch from "isomorphic-unfetch";
 
 import router from "~/api/middleware/router";
@@ -6,7 +7,7 @@ import router from "~/api/middleware/router";
 const handler = connect();
 
 async function callback(req, res) {
-  console.log(req.query);
+  const cookies = new Cookies(req, res);
 
   const redirectURI = `${process.env.BASE_URL}/api/auth/instagram/callback`;
 
@@ -26,9 +27,14 @@ async function callback(req, res) {
   );
   const data = await response.json();
 
-  console.log(data);
+  cookies.set("instagramToken", data?.access_token, {
+    maxAge: 1000 * 60 * 30, // 30 minutes
+  });
 
-  res.json({});
+  res.writeHead(302, {
+    Location: "/",
+  });
+  res.end();
 }
 
 handler.use(

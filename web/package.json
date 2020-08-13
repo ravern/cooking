@@ -17,6 +17,7 @@
     "apollo-server-micro": "^2.13.0",
     "async-middleware": "^1.2.1",
     "connect": "^3.7.0",
+    "cookies": "^0.8.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "emotion-theming": "^10.0.27",
