@@ -14,11 +14,11 @@ export default function IndexPage({ dishes, error }) {
 }
 
 export async function getServerSideProps() {
-  const { data, error } = await fetch("/dishes");
+  const { data: dishes, error } = await fetch("/dishes");
 
   return {
     props: {
-      dishes: data ?? null,
+      dishes: dishes ?? null,
       error: error ?? null,
     },
   };
