@@ -1,5 +1,6 @@
 import connect from "connect";
 
+import requireAdminAuth from "~/api/middleware/requireAdminAuth";
 import router from "~/api/middleware/router";
 
 const handler = connect();
@@ -15,6 +16,7 @@ function redirect(req, res) {
   res.end();
 }
 
+handler.use(requireAdminAuth);
 handler.use(
   router({
     GET: redirect,

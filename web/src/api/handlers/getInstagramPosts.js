@@ -1,23 +1,19 @@
-import Cookies from "cookies";
-import unfetch from "isomorphic-unfetch";
-
-import db from "~/api/db";
+import { getMedia } from "~/api/clients/instagram";
 
 export default async function getInstagramPosts(req, res) {
-  const cookies = new Cookies(req, res);
+  const { admin } = req.state;
 
-  const accessToken = cookies.get("instagramToken");
+  if (!admin.instagramToken) {
+    res.json({
+      error: {
+        message: "You need to login to Instagram.",
+      },
+    });
+    res.state(401);
+    return;
+  }
 
-  const response = await unfetch(
-    `https://graph.instagram.com/17945530993005896/children?fields=id,media_url&access_token=${accessToken}`
-  );
-  const data = await response.json();
+  const posts = await getMedia(admin.instagramToken);
 
-  console.log(data);
-
-  const dishes = await db("dishes");
-
-  res.json({
-    data: dishes,
-  });
+  res.json({ data: posts });
 }

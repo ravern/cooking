@@ -1,14 +1,10 @@
 import { css, Global } from "@emotion/core";
 
-import AdminLayout from "~/layouts/Admin";
-
 export default function App({ Component, pageProps }) {
   return (
     <>
       <Global styles={globalStyles} />
-      <AdminLayout>
-        <Component {...pageProps} />
-      </AdminLayout>
+      <Component {...pageProps} />
     </>
   );
 }
