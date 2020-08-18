@@ -8,15 +8,15 @@ import AdminLayout from "~/layouts/Admin";
 import requireAdminAuth from "~/middleware/requireAdminAuth";
 
 export default function DishesPage() {
-  const { data: dishes, error } = useRequest("/api/dishes", getDishes);
+  const { data: dishes } = useRequest("/api/dishes", getDishes);
 
   return (
     <AdminLayout>
       <TitleContainer>
         <Title>Your dishes</Title>
-        <NewLink href="/admin/dishes/new">
-          <a>New dish</a>
-        </NewLink>
+        <Link href="/admin/dishes/new" passHref>
+          <NewAnchor>New dish</NewAnchor>
+        </Link>
       </TitleContainer>
       <Container>
         {dishes?.map((dish) => (
@@ -39,7 +39,7 @@ const TitleContainer = styled.div`
   justify-content: space-between;
 `;
 
-const NewLink = styled(Link)``;
+const NewAnchor = styled.a``;
 
 const Container = styled.div`
   display: flex;

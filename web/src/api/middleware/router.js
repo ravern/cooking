@@ -1,7 +1,7 @@
 import { wrap } from "async-middleware";
 
 export default function router(routes) {
-  return wrap(async (req, res) => {
+  return wrap(async (req, res, next) => {
     const handler = routes[req.method];
     if (!handler) {
       res.statusCode = 405;
@@ -12,6 +12,6 @@ export default function router(routes) {
       });
       return;
     }
-    await wrap(handler)(req, res);
+    await wrap(handler)(req, res, next);
   });
 }

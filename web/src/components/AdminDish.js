@@ -1,9 +1,19 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 
+import deleteDish from "~/fetchers/deleteDish";
+import getDishes from "~/fetchers/getDishes";
+import useRequest from "~/hooks/useRequest";
+
 export default function AdminDish({ dish }) {
-  const handleDeleteClick = () => {
-    alert("Deleting dishes isn't supported for now.");
+  const { refetch } = useRequest("/api/dishes", getDishes);
+
+  const handleDeleteClick = async () => {
+    if (!confirm("Are you sure you want to delete this dish?")) {
+      return;
+    }
+    await deleteDish(dish.id);
+    refetch();
   };
 
   return (

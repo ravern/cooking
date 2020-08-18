@@ -35,7 +35,9 @@ function useForm(props) {
 
   const onChange = useCallback(
     (name) => (eOrValue) => {
-      if (eOrValue?.target) {
+      if (eOrValue === undefined) {
+        return;
+      } else if (eOrValue?.target) {
         setValue(name, eOrValue.target.value);
       } else {
         setValue(name, eOrValue);
