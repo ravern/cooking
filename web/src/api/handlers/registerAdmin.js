@@ -2,9 +2,9 @@ import bcrypt from "bcryptjs";
 import Cookies from "cookies";
 import jwt from "jsonwebtoken";
 
-import db from "~/api/db";
-
 export default async function registerAdmin(req, res) {
+  const { db } = req.state;
+
   const cookies = new Cookies(req, res);
 
   const { username, password } = req.body;

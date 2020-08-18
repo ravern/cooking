@@ -2,9 +2,9 @@ import {
   obtainAccessToken,
   obtainLongLivedAccessToken,
 } from "~/api/clients/instagram";
-import db from "~/api/db";
 
 export default async function callbackInstagram(req, res) {
+  const { db } = req.state;
   const { code } = req.query;
   const { admin } = req.state;
 

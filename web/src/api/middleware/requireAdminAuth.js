@@ -1,9 +1,10 @@
+import { wrap } from "async-middleware";
 import Cookies from "cookies";
 import jwt from "jsonwebtoken";
 
-import db from "~/api/db";
+async function requireAdminAuth(req, res, next) {
+  const { db } = req.state;
 
-export default async function requireAdminAuth(req, res, next) {
   const cookies = new Cookies(req, res);
 
   const token = cookies.get("adminToken");
@@ -47,5 +48,7 @@ export default async function requireAdminAuth(req, res, next) {
   }
   req.state.admin = admin;
 
-  await next();
+  next();
 }
+
+export default wrap(requireAdminAuth);

@@ -1,5 +1,6 @@
 import connect from "connect";
 
+import connectDB from "~/api/middleware/connectDB";
 import requireAdminAuth from "~/api/middleware/requireAdminAuth";
 import router from "~/api/middleware/router";
 
@@ -16,6 +17,7 @@ function redirect(req, res) {
   res.end();
 }
 
+handler.use(connectDB);
 handler.use(requireAdminAuth);
 handler.use(
   router({

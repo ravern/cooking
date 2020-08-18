@@ -32,5 +32,5 @@ export async function getMedia(accessToken) {
   );
   const data = await res.json();
 
-  return data?.data;
+  return data;
 }

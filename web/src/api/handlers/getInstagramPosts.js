@@ -9,11 +9,21 @@ export default async function getInstagramPosts(req, res) {
         message: "You need to login to Instagram.",
       },
     });
-    res.state(401);
+    res.status(401);
     return;
   }
 
-  const posts = await getMedia(admin.instagramToken);
+  const { data: posts, error } = await getMedia(admin.instagramToken);
+
+  if (error) {
+    res.json({
+      error: {
+        message: "You need to login to Instagram.",
+      },
+    });
+    res.status(401);
+    return;
+  }
 
   res.json({ data: posts });
 }

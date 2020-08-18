@@ -1,6 +1,5 @@
-import db from "~/api/db";
-
 export default async function updateDish(req, res) {
+  const { db } = req.state;
   const { id } = req.query;
   const { name, description, images } = req.body;
 
