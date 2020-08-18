@@ -33,9 +33,16 @@ function useForm(props) {
     initialValues,
   ]);
 
-  const onChange = (name) => (e) => {
-    setValue(name, e.target.value);
-  };
+  const onChange = useCallback(
+    (name) => (eOrValue) => {
+      if (eOrValue?.target) {
+        setValue(name, eOrValue.target.value);
+      } else {
+        setValue(name, eOrValue);
+      }
+    },
+    [setValue]
+  );
 
   return {
     error,

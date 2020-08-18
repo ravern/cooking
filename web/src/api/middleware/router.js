@@ -12,6 +12,6 @@ export default function router(routes) {
       });
       return;
     }
-    await handler(req, res);
+    await wrap(handler)(req, res);
   });
 }

@@ -12,23 +12,23 @@ export default function ChoosePostInput({ value, onChange }) {
     getInstagramPosts
   );
 
-  const handleSelect = (postID) => () => {
-    onChange(postID);
+  const handleSelect = (post) => () => {
+    onChange(post);
   };
 
   return (
     <Container>
       <Title>Step 1: Choose post from Instagram</Title>
-      {!posts && !error && "Loading..."}
+      {!posts && !error && <span>Loading...</span>}
       {error && <Error error={error} refetch={refetch} />}
       {posts && (
         <PostsContainer>
           {posts.map((post) => (
             <Post
               key={post.id}
-              selected={value === post.id}
+              selected={value?.id === post.id}
               post={post}
-              onSelect={handleSelect(post.id)}
+              onSelect={handleSelect(post)}
             />
           ))}
         </PostsContainer>
