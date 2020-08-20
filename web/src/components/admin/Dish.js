@@ -5,7 +5,7 @@ import deleteDish from "~/fetchers/deleteDish";
 import getDishes from "~/fetchers/getDishes";
 import useRequest from "~/hooks/useRequest";
 
-export default function AdminDish({ dish }) {
+export default function Dish({ dish }) {
   const { refetch } = useRequest("/api/dishes", getDishes);
 
   const handleDeleteClick = async () => {

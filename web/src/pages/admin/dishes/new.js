@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
-import DishForm from "~/components/DishForm";
+import DishForm from "~/components/admin/DishForm";
 import createDish from "~/fetchers/createDish";
 import AdminLayout from "~/layouts/Admin";
 import requireAdminAuth from "~/middleware/requireAdminAuth";
