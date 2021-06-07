@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import type { EndpointOutput, Request } from "$lib/api/endpoint";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
