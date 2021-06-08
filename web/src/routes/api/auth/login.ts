@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 import type { EndpointOutput, Request } from "$lib/api/endpoint";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -15,7 +13,6 @@ export async function post(request: Request<Body>): Promise<EndpointOutput> {
   const { username, password } = request.body;
 
   const user = await db("users").where({ username }).first();
-
   if (user == null) {
     return {
       status: 400,
@@ -39,7 +36,7 @@ export async function post(request: Request<Body>): Promise<EndpointOutput> {
     };
   }
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+  const token = jwt.sign({ id: user.id }, import.meta.env.VITE_JWT_SECRET);
 
   return {
     headers: {
