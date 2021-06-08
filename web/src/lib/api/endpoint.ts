@@ -4,9 +4,11 @@ import type {
   EndpointOutput as SvelteKitEndpointOutput,
 } from "@sveltejs/kit";
 import type { Knex } from "knex";
+import type { User } from "./db/models";
 
 export type RequestLocals = {
   db: Knex;
+  user: User | null;
 };
 
 export type Request<Body = unknown> = SvelteKitRequest<RequestLocals, Body>;

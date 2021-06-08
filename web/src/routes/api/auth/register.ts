@@ -2,8 +2,9 @@ import "dotenv/config";
 
 import type { EndpointOutput, Request } from "$lib/api/endpoint";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jwt from "$lib/api/jwt";
 import type { User } from "$lib/api/db/models";
+import cookies from "cookie";
 
 type Body = {
   username: string;
@@ -31,6 +32,7 @@ export async function post(request: Request<Body>): Promise<EndpointOutput> {
     if (error.code === "23505") {
       if (error.constraint.endsWith("username_unique")) {
         return {
+          status: 400,
           body: {
             error: {
               message: "Username already exists",
@@ -42,13 +44,14 @@ export async function post(request: Request<Body>): Promise<EndpointOutput> {
     }
   }
 
-  console.log(process.env.JWT_SECRET);
+  const token = await jwt.sign({ id: user.id });
 
-  const token = jwt.sign({ id: user.id }, import.meta.env.VITE_JWT_SECRET);
+  delete user.password;
+  delete user.credentials;
 
   return {
     headers: {
-      "set-cookie": JSON.stringify({ token }),
+      "set-cookie": cookies.serialize("token", token),
     },
     body: {
       data: user,

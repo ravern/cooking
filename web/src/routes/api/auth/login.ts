@@ -1,6 +1,8 @@
+import cookies from "cookie";
 import type { EndpointOutput, Request } from "$lib/api/endpoint";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jwt from "$lib/api/jwt";
+import type { User } from "$lib/api/db/models";
 
 type Body = {
   username: string;
@@ -12,7 +14,7 @@ export async function post(request: Request<Body>): Promise<EndpointOutput> {
 
   const { username, password } = request.body;
 
-  const user = await db("users").where({ username }).first();
+  const user: User = await db("users").where({ username }).first();
   if (user == null) {
     return {
       status: 400,
@@ -36,11 +38,14 @@ export async function post(request: Request<Body>): Promise<EndpointOutput> {
     };
   }
 
-  const token = jwt.sign({ id: user.id }, import.meta.env.VITE_JWT_SECRET);
+  const token = await jwt.sign({ id: user.id });
+
+  delete user.password;
+  delete user.credentials;
 
   return {
     headers: {
-      "set-cookie": JSON.stringify({ token }),
+      "set-cookie": cookies.serialize("token", token),
     },
     body: {
       user,
