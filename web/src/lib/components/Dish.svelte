@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Dish } from "$lib/api/db/models";
-  import Markdown from "svelte-markdown";
+  import Body from "./Body.svelte";
 
   export let dish: Dish;
 </script>
@@ -11,8 +11,9 @@
       <img src={dish.pictures[0]} alt={dish.name} />
     </div>
   </div>
-  <div class="body-container markdown">
-    <Markdown source={dish.body} />
+  <div class="content-container">
+    <h1 class="content-title">{dish.name}</h1>
+    <Body body={dish.body} />
   </div>
 </article>
 
@@ -42,7 +43,7 @@
     height: 100%;
   }
 
-  .body-container {
+  .content-container {
     margin-top: 1.6rem;
   }
 </style>
