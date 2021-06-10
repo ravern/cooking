@@ -8,7 +8,6 @@
 <div class="container">
   {#each dishes as dish}
     <DishItem {dish} />
-    <DishItem {dish} />
   {/each}
 </div>
 

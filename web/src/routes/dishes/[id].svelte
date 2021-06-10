@@ -1,8 +1,15 @@
 <script context="module" lang="ts">
   import type { LoadInput } from "@sveltejs/kit";
 
-  export async function load({ fetch }: LoadInput) {
-    const res = await fetch("/api/dishes");
+  export async function load({
+    page: {
+      params: { id },
+    },
+    fetch,
+    session,
+    context,
+  }: LoadInput) {
+    const res = await fetch(`/api/dishes/${id}`);
     const body = await res.json();
 
     if (!res.ok) {
@@ -14,21 +21,21 @@
 
     return {
       props: {
-        dishes: body.data,
+        dish: body.data,
       },
     };
   }
 </script>
 
 <script lang="ts">
-  import type { Dish } from "$lib/api/db/models";
-  import DishGrid from "$lib/components/DishGrid/index.svelte";
+  import type { Dish as DishType } from "$lib/api/db/models";
+  import Dish from "$lib/components/Dish.svelte";
 
-  export let dishes: Dish[];
+  export let dish: DishType;
 </script>
 
 <svelte:head>
   <title>Jenny's Recipes</title>
 </svelte:head>
 
-<DishGrid {dishes} />
+<Dish {dish} />

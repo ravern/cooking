@@ -1,6 +1,6 @@
 <header>
   <div class="logo">
-    <h1>Jenny's Recipes</h1>
+    <a href="/">Jenny's Recipes</a>
   </div>
   <nav>
     <a href="/about">About</a>
@@ -17,11 +17,12 @@
     align-items: center;
   }
 
-  header > .logo {
-    font-size: 0.8rem;
+  header > .logo > a {
+    font-size: 1.6rem;
+    font-weight: 900;
   }
 
-  header > nav > a {
+  a {
     text-decoration: none;
     color: black;
   }
