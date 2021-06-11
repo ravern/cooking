@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-  import AddDishForm from "$lib/components/AddDishForm/index.svelte";
+  import AddDishForm from "$lib/components/admin/AddDishForm/index.svelte";
 </script>
 
 <AddDishForm />

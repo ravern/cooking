@@ -3,7 +3,7 @@
 
   import { createRichTextEditor, toPlainText } from "prosemirror-svelte/state";
 
-  let editorState = createRichTextEditor("Hello world!");
+  let editorState = createRichTextEditor("Description");
 
   function handleChange(event) {
     editorState = event.detail.editorState;
@@ -13,7 +13,7 @@
 </script>
 
 <ProsemirrorEditor
-  placeholder="Go ahead and type something"
+  placeholder="Description"
   {editorState}
   on:change={handleChange}
 />
