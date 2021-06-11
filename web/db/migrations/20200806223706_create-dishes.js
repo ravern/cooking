@@ -1,9 +1,10 @@
 exports.up = (knex) => {
   return knex.schema.createTable("dishes", (t) => {
     t.uuid("id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
+    t.uuid("admin_id").references("admins.id").notNullable();
     t.text("name").notNullable();
-    t.text("description").notNullable();
-    t.json("images").notNullable();
+    t.specificType("pictures", "TEXT ARRAY").notNullable();
+    t.text("body").notNullable();
     t.timestamps(true, true);
   });
 };

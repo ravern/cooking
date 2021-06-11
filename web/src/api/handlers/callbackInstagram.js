@@ -15,7 +15,7 @@ export default async function callbackInstagram(req, res) {
 
   await db("admins")
     .where({ id: admin.id })
-    .update({ instagramToken: longLivedAccessToken });
+    .update({ credentials: { instagramToken: longLivedAccessToken } });
 
   res.writeHead(302, {
     Location: "/auth/callback",

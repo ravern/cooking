@@ -9,21 +9,21 @@ import requireAdminAuth from "~/middleware/requireAdminAuth";
 export default function NewDishPage() {
   const router = useRouter();
 
-  const handleSubmit = async ({ name, description, post }) => {
+  const handleSubmit = async ({ name, body, post }) => {
     if (!name) {
       throw new Error("Name is required.");
     }
-    if (!description) {
-      throw new Error("Description is required.");
+    if (!body) {
+      throw new Error("Body is required.");
     }
     if (!post) {
       throw new Error("Please select an Instagram post.");
     }
 
     const { error } = await createDish({
-      name: name,
-      description: description,
-      images: [post?.media_url],
+      name,
+      body,
+      pictures: [post?.media_url],
     });
     if (error) {
       throw error;
@@ -39,7 +39,7 @@ export default function NewDishPage() {
         values={{
           post: null,
           name: "",
-          description: "",
+          body: "",
         }}
         onSubmit={handleSubmit}
       />

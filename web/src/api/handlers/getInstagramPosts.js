@@ -3,7 +3,7 @@ import { getMedia } from "~/api/clients/instagram";
 export default async function getInstagramPosts(req, res) {
   const { admin } = req.state;
 
-  if (!admin.instagramToken) {
+  if (!admin.credentials?.instagramToken) {
     res.json({
       error: {
         message: "You need to login to Instagram.",
@@ -13,7 +13,9 @@ export default async function getInstagramPosts(req, res) {
     return;
   }
 
-  const { data: posts, error } = await getMedia(admin.instagramToken);
+  const { data: posts, error } = await getMedia(
+    admin.credentials?.instagramToken
+  );
 
   if (error) {
     res.json({

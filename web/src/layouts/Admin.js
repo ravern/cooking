@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import Header from "~/components/Header";
+import Header from "~/components/admin/Header";
 
 export default function AdminLayout({ children }) {
   return (

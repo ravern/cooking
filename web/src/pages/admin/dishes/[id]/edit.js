@@ -10,12 +10,12 @@ import requireAdminAuth from "~/middleware/requireAdminAuth";
 export default function EditDishPage({ dish }) {
   const router = useRouter();
 
-  const handleSubmit = async ({ name, description, post }) => {
+  const handleSubmit = async ({ name, body, post }) => {
     if (!name) {
       throw new Error("Name is required.");
     }
-    if (!description) {
-      throw new Error("Description is required.");
+    if (!body) {
+      throw new Error("Body is required.");
     }
     if (!post) {
       throw new Error("Please select an Instagram post.");
@@ -24,8 +24,8 @@ export default function EditDishPage({ dish }) {
     const { error } = await updateDish({
       id: dish.id,
       name: name,
-      description: description,
-      images: [post?.media_url],
+      body: body,
+      pictures: [post?.media_url],
     });
     if (error) {
       throw error;

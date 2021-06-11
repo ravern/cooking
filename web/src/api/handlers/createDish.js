@@ -1,12 +1,13 @@
 export default async function createDish(req, res) {
-  const { db } = req.state;
-  const { name, description, images } = req.body;
+  const { db, admin } = req.state;
+  const { name, pictures, body } = req.body;
 
   const [dish] = await db("dishes")
     .insert({
+      admin_id: admin.id,
       name,
-      description,
-      images: JSON.stringify(images),
+      pictures,
+      body,
     })
     .returning("*");
 

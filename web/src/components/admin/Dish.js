@@ -18,12 +18,12 @@ export default function Dish({ dish }) {
 
   return (
     <Container>
-      <Image src={dish.images[0]} />
+      <Image src={dish.pictures[0]} />
       <RightContainer>
         <Name>{dish.name}</Name>
-        <DescriptionContainer>
-          <Description>{dish.description}</Description>
-        </DescriptionContainer>
+        <BodyContainer>
+          <Body>{dish.body}</Body>
+        </BodyContainer>
         <ActionsContainer>
           <Link
             href="/admin/dishes/[id]/edit"
@@ -69,12 +69,12 @@ const Name = styled.span`
   font-weight: bold;
 `;
 
-const DescriptionContainer = styled.div`
+const BodyContainer = styled.div`
   position: relative;
   height: 1.6rem;
 `;
 
-const Description = styled.span`
+const Body = styled.span`
   position: absolute;
   top: 0;
   left: 0;

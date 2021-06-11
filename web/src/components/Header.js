@@ -2,76 +2,45 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 
 export default function Header() {
-  return (
-    <HeaderContainer>
-      <NavContainer>
-        <Link href="/" passHref>
-          <BrandLink>jenny.cooking</BrandLink>
-        </Link>
-        <NavLinksContainer>
-          <Link href="/admin/dishes" passHref>
-            <NavLink>Dishes</NavLink>
-          </Link>
-          <Link href="/admin/recipes" passHref>
-            <NavLink>Recipes</NavLink>
-          </Link>
-          <Link href="/admin/cheats" passHref>
-            <NavLink>Cheats</NavLink>
-          </Link>
-        </NavLinksContainer>
-      </NavContainer>
-    </HeaderContainer>
-  );
+  return <Container>
+    <Logo>
+      <Link href="/">
+        <Anchor>
+          Jenny's Recipes
+        </Anchor>
+      </Link>
+    </Logo>
+    <Nav>
+      <Link href="/about">
+        <Anchor>
+          About
+        </Anchor>
+      </Link>
+    </Nav>
+  </Container>
 }
 
-const HeaderContainer = styled.header`
-  position: absolute;
-  left: 0;
-  top: 0;
-
-  @media only screen and (max-width: 128ch) {
-    position: static;
-    border-bottom: 1px solid #111;
-  }
-`;
-
-const NavContainer = styled.nav`
-  display: flex;
-  flex-direction: column;
+const Container = styled.header`
+  margin: auto;
+  max-width: 80ch;
   padding: 1.2rem;
-
-  & > * + * {
-    margin-top: 0.8rem;
-  }
-
-  @media only screen and (max-width: 128ch) {
-    max-width: 64ch;
-    margin: auto;
-  }
-`;
-
-const BrandLink = styled.a`
-  font-weight: bold;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const NavLinksContainer = styled.div`
   display: flex;
-  flex-direction: column;
-
-  & > * + * {
-    margin-top: 0.4rem;
-  }
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const NavLink = styled.a`
+const Logo = styled.div`
+  font-size: 1.6rem;
+  font-weight: 900;
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  color: black;
+  cursor: pointer;
 `;
+
+const Nav = styled.nav`
+`;
+
+const Anchor = styled.a`
+  text-decoration: none;
+  color: black;
+`

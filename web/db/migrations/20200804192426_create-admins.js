@@ -3,7 +3,7 @@ exports.up = (knex) => {
     t.uuid("id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
     t.text("username").unique().notNullable();
     t.text("password").notNullable();
-    t.text("instagramToken");
+    t.json("credentials");
     t.timestamps(true, true);
   });
 };

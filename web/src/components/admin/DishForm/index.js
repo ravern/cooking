@@ -15,7 +15,7 @@ export default function DishForm({
   });
 
   useEffect(() => {
-    onChange("description")(values.post?.caption);
+    onChange("body")(values.post?.caption);
   }, [onChange, values.post]);
 
   return (
@@ -28,11 +28,8 @@ export default function DishForm({
           <NameInput value={values.name} onChange={onChange("name")} />
         </InputContainer>
         <InputContainer>
-          <Label>Description</Label>
-          <DescriptionTextarea
-            value={values.description}
-            onChange={onChange("description")}
-          />
+          <Label>Body</Label>
+          <BodyTextarea value={values.body} onChange={onChange("body")} />
         </InputContainer>
       </DetailsContainer>
       {error && <ErrorMessage>{error.message}</ErrorMessage>}
@@ -75,7 +72,7 @@ const InputContainer = styled.div`
 
 const NameInput = styled.input``;
 
-const DescriptionTextarea = styled.textarea`
+const BodyTextarea = styled.textarea`
   height: 12rem;
   resize: none;
 `;
