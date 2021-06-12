@@ -1,4 +1,5 @@
 import fetch from "~/helpers/fetch";
+
 import DishGrid from "../components/DishGrid";
 import BaseLayout from "../layouts/Base";
 

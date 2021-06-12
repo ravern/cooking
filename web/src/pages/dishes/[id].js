@@ -1,9 +1,10 @@
-import fetch from "~/helpers/fetch";
-import styled from "@emotion/styled"
-import BaseLayout from "~/layouts/Base";
-import BaseBody from "~/components/Body";
+import styled from "@emotion/styled";
 
-export async function getServerSideProps({ params: { id }}) {
+import BaseBody from "~/components/Body";
+import fetch from "~/helpers/fetch";
+import BaseLayout from "~/layouts/Base";
+
+export async function getServerSideProps({ params: { id } }) {
   const { data: dish, error } = await fetch(`/dishes/${id}`);
 
   return {
@@ -15,23 +16,24 @@ export async function getServerSideProps({ params: { id }}) {
 }
 
 export default function DishPage({ dish, error }) {
-  return <BaseLayout>
-    <Container>
-      <ImageContainer>
-        <ImageInnerContainer>
-          <Image src={dish.pictures[0]} />
-        </ImageInnerContainer>
-      </ImageContainer>
-      <ContentContainer>
-        <Name>{dish.name}</Name>
-        <Body body={dish.body} />
-      </ContentContainer>
-    </Container>
-  </BaseLayout>;
+  return (
+    <BaseLayout>
+      <Container>
+        <ImageContainer>
+          <ImageInnerContainer>
+            <Image src={dish.pictures[0]} />
+          </ImageInnerContainer>
+        </ImageContainer>
+        <ContentContainer>
+          <Name>{dish.name}</Name>
+          <Body body={dish.body} />
+        </ContentContainer>
+      </Container>
+    </BaseLayout>
+  );
 }
 
-const Container = styled.article`
-`;
+const Container = styled.article``;
 
 const ImageContainer = styled.div`
   position: relative;
@@ -58,13 +60,11 @@ const Image = styled.img`
   height: 100%;
 `;
 
-const ContentContainer =styled.div`
-
-margin-top: 1.6rem;
+const ContentContainer = styled.div`
+  margin-top: 1.6rem;
 `;
 
-const Name = styled.h1`
-`;
+const Name = styled.h1``;
 
 const Body = styled(BaseBody)`
   margin-top: 0.8rem;

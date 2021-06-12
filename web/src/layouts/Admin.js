@@ -6,13 +6,13 @@ export default function AdminLayout({ children }) {
   return (
     <>
       <Header />
-      <Container>{children}</Container>
+      <Main>{children}</Main>
     </>
   );
 }
 
-const Container = styled.main`
+const Main = styled.main`
   margin: auto;
-  max-width: 64ch;
+  max-width: 80ch;
   padding: 1.2rem;
 `;

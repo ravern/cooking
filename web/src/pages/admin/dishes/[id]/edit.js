@@ -36,7 +36,7 @@ export default function EditDishPage({ dish }) {
 
   return (
     <AdminLayout>
-      <Title>Import dish from Instagram</Title>
+      <Title>Edit dish</Title>
       <DishForm values={dish} onSubmit={handleSubmit} />
     </AdminLayout>
   );
@@ -52,6 +52,4 @@ export async function getServerSideProps({ req, res, query }) {
   return { props: { dish } };
 }
 
-const Title = styled.h1`
-  font-size: 1.6rem;
-`;
+const Title = styled.h1``;

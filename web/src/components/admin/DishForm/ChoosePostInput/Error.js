@@ -3,6 +3,7 @@ import { useCallback, useEffect } from "react";
 
 import { MESSAGE_AUTH_REFRESH } from "~/constants";
 import openAuthWindow from "~/helpers/openAuthWindow";
+import Button from "~/components/Button"
 
 export default function Error({ error, refetch }) {
   const handleAuthMessage = useCallback((e) => {
@@ -23,7 +24,7 @@ export default function Error({ error, refetch }) {
   };
 
   if (error?.message?.includes("Instagram")) {
-    return <LoginButton onClick={handleLogin}>Login to Instagram</LoginButton>;
+    return <Button onClick={handleLogin}>Login to Instagram</Button>;
   }
   return <ErrorMessage>{error.message}</ErrorMessage>;
 }

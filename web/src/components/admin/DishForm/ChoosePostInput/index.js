@@ -4,7 +4,8 @@ import getInstagramPosts from "~/fetchers/getInstagramPosts";
 import useRequest from "~/hooks/useRequest";
 
 import Error from "./Error";
-import Post from "./Post";
+import PostGrid from "./PostGrid";
+import PostItem from "./PostGrid/PostItem";
 
 export default function ChoosePostInput({ value, onChange }) {
   const { data: posts, error, refetch } = useRequest(
@@ -12,7 +13,7 @@ export default function ChoosePostInput({ value, onChange }) {
     getInstagramPosts
   );
 
-  const handleSelect = (post) => () => {
+  const handleSelect = (post) => {
     onChange(post);
   };
 
@@ -22,16 +23,7 @@ export default function ChoosePostInput({ value, onChange }) {
       {!posts && !error && <span>Loading...</span>}
       {error && <Error error={error} refetch={refetch} />}
       {posts && (
-        <PostsContainer>
-          {posts.map((post) => (
-            <Post
-              key={post.id}
-              selected={value?.id === post.id}
-              post={post}
-              onSelect={handleSelect(post)}
-            />
-          ))}
-        </PostsContainer>
+        <PostGrid posts={posts} onSelect={handleSelect} selectedPostID={value?.id} />
       )}
     </Container>
   );
@@ -43,7 +35,10 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  font-size: 1.2rem;
+  font-weight: 400;
+`;
 
 const PostsContainer = styled.div`
   display: flex;

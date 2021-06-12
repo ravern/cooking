@@ -1,7 +1,12 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 export default function Body({ className, body }) {
-  return <Container className={className} dangerouslySetInnerHTML={{ __html: body }} />
+  return (
+    <Container
+      className={className}
+      dangerouslySetInnerHTML={{ __html: body }}
+    />
+  );
 }
 
 const Container = styled.div`

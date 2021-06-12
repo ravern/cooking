@@ -34,7 +34,7 @@ export default function NewDishPage() {
 
   return (
     <AdminLayout>
-      <Title>Import dish from Instagram</Title>
+      <Title>Add new dish</Title>
       <DishForm
         values={{
           post: null,
@@ -53,6 +53,4 @@ export async function getServerSideProps({ req, res }) {
   return { props: {} };
 }
 
-const Title = styled.h1`
-  font-size: 1.6rem;
-`;
+const Title = styled.h1``;

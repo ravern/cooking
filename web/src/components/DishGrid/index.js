@@ -1,12 +1,15 @@
 import styled from "@emotion/styled";
-import DishItem from './components/DishItem'
+
+import DishItem from "./DishItem";
 
 export default function DishGrid({ dishes }) {
-  return <Container>
-    {dishes.map(dish => (
-      <DishItem key={dish.id} dish={dish} />
-    ))}
-  </Container>
+  return (
+    <Container>
+      {dishes.map((dish) => (
+        <DishItem key={dish.id} dish={dish} />
+      ))}
+    </Container>
+  );
 }
 
 const Container = styled.div`

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 
+import Button, { SmallButton } from "~/components/Button";
 import deleteDish from "~/fetchers/deleteDish";
 import getDishes from "~/fetchers/getDishes";
 import useRequest from "~/hooks/useRequest";
@@ -29,9 +30,9 @@ export default function Dish({ dish }) {
             href="/admin/dishes/[id]/edit"
             as={`/admin/dishes/${dish.id}/edit`}
           >
-            <a>Edit</a>
+            <SmallButton as="a">Edit</SmallButton>
           </Link>
-          <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
+          <SmallButton onClick={handleDeleteClick}>Delete</SmallButton>
         </ActionsContainer>
       </RightContainer>
     </Container>
@@ -50,7 +51,7 @@ const Image = styled.img`
   width: 4.8rem;
   height: 4.8rem;
   object-fit: cover;
-  border: 1px solid black;
+  border-radius: 0.4rem;
 `;
 
 const RightContainer = styled.div`
@@ -91,11 +92,4 @@ const ActionsContainer = styled.div`
   & > * + * {
     margin-left: 0.8rem;
   }
-`;
-
-const DeleteButton = styled.button`
-  border: none;
-  background: none;
-  text-decoration: underline;
-  padding: 0;
 `;

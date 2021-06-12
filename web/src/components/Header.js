@@ -2,22 +2,20 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 
 export default function Header() {
-  return <Container>
-    <Logo>
-      <Link href="/">
-        <Anchor>
-          Jenny's Recipes
-        </Anchor>
-      </Link>
-    </Logo>
-    <Nav>
-      <Link href="/about">
-        <Anchor>
-          About
-        </Anchor>
-      </Link>
-    </Nav>
-  </Container>
+  return (
+    <Container>
+      <Logo>
+        <Link href="/">
+          <Anchor>Jenny&apos;s Recipes</Anchor>
+        </Link>
+      </Logo>
+      <Nav>
+        <Link href="/about">
+          <Anchor>About</Anchor>
+        </Link>
+      </Nav>
+    </Container>
+  );
 }
 
 const Container = styled.header`
@@ -37,10 +35,10 @@ const Logo = styled.div`
   cursor: pointer;
 `;
 
-const Nav = styled.nav`
-`;
+const Nav = styled.nav``;
 
 const Anchor = styled.a`
+  cursor: pointer;
   text-decoration: none;
   color: black;
-`
+`;

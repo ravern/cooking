@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 
-import AdminDish from "~/components/admin/Dish";
+import Dish from "~/components/admin/Dish";
+import Button from "~/components/Button";
 import getDishes from "~/fetchers/getDishes";
 import useRequest from "~/hooks/useRequest";
 import AdminLayout from "~/layouts/Admin";
@@ -15,12 +16,12 @@ export default function DishesPage() {
       <TitleContainer>
         <Title>Your dishes</Title>
         <Link href="/admin/dishes/new" passHref>
-          <NewAnchor>New dish</NewAnchor>
+          <Button as="a">New dish</Button>
         </Link>
       </TitleContainer>
       <Container>
         {dishes?.map((dish) => (
-          <AdminDish key={dish.id} dish={dish} />
+          <Dish key={dish.id} dish={dish} />
         ))}
       </Container>
     </AdminLayout>
@@ -38,8 +39,6 @@ const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
-
-const NewAnchor = styled.a``;
 
 const Container = styled.div`
   display: flex;

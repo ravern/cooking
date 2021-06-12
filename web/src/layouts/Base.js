@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
+
 import Header from "~/components/Header";
 
 export default function BaseLayout({ children }) {
-  return <>
-    <Header />
-    <Main>
-    {children}
-    </Main> 
-  </>
+  return (
+    <>
+      <Header />
+      <Main>{children}</Main>
+    </>
+  );
 }
 
 const Main = styled.main`

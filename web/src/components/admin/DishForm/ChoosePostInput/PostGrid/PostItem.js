@@ -1,25 +1,19 @@
 import styled from "@emotion/styled";
-import Link from "next/link";
 
-
-export default function DishItem({dish}) {
-  return <Container>
-    <ContentContainer>
-      <Image src={dish.pictures[0]} alt={dish.name} />
-    </ContentContainer>
-    <Link href={`/dishes/${dish.id}`} passHref>
-      <a>
-        <HoverContainer>
-          <Name>{dish.name}</Name>
-        </HoverContainer>
-      </a>
-    </Link>
-  </Container>
+export default function Post({ selected, post, onSelect }) {
+  return (
+    <Container selected={selected} onClick={onSelect}>
+      <ContentContainer>
+        <Image src={post.media_url} alt={post.caption} />
+      </ContentContainer>
+    </Container>
+  );
 }
 
 const Container = styled.div`
   position: relative;
   border-radius: 0.8rem;
+  border: ${props => props.selected ? '0.2rem solid black' : 'none'};
   overflow: hidden;
 
   &::before {

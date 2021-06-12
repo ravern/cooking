@@ -1,9 +1,13 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
+import dynamic from "next/dynamic";
 
 import useForm from "~/hooks/useForm";
+import Button from "~/components/Button"
 
 import ChoosePostInput from "./ChoosePostInput";
+
+const RichTextEditor = dynamic(() => import("~/components/admin/RichTextEditor"), { ssr: false });
 
 export default function DishForm({
   values: initialValues,
@@ -14,26 +18,27 @@ export default function DishForm({
     onSubmit: handleSubmit,
   });
 
-  useEffect(() => {
-    onChange("body")(values.post?.caption);
-  }, [onChange, values.post]);
+  // useEffect(() => {
+  //   onChange("body")(values.post?.caption);
+  // }, [onChange, values.post]);
 
   return (
     <Container>
+      <Divider />
       <ChoosePostInput value={values.post} onChange={onChange("post")} />
+      <Divider />
       <DetailsContainer>
         <DetailsTitle>Step 2: Fill in post details</DetailsTitle>
         <InputContainer>
-          <Label>Name</Label>
-          <NameInput value={values.name} onChange={onChange("name")} />
+          <NameInput value={values.name} onChange={onChange("name")} placeholder="Name" />
         </InputContainer>
         <InputContainer>
-          <Label>Body</Label>
-          <BodyTextarea value={values.body} onChange={onChange("body")} />
+          <RichTextEditor initialValue={initialValues.body} onChange={onChange("body")} />
         </InputContainer>
       </DetailsContainer>
       {error && <ErrorMessage>{error.message}</ErrorMessage>}
-      <SubmitButton onClick={onSubmit}>Submit</SubmitButton>
+      <Divider />
+      <Button onClick={onSubmit}>Submit</Button>
     </Container>
   );
 }
@@ -57,7 +62,10 @@ const DetailsContainer = styled.div`
   }
 `;
 
-const DetailsTitle = styled.h2``;
+const DetailsTitle = styled.h2`
+  font-size: 1.2rem;
+  font-weight: 400;
+`;
 
 const Label = styled.label``;
 
@@ -70,7 +78,12 @@ const InputContainer = styled.div`
   }
 `;
 
-const NameInput = styled.input``;
+const NameInput = styled.input`
+  font-family: inherit;
+  font-size: 2rem;
+  font-weight: 900;
+  border: none;
+`;
 
 const BodyTextarea = styled.textarea`
   height: 12rem;
@@ -81,4 +94,9 @@ const ErrorMessage = styled.span`
   color: red;
 `;
 
-const SubmitButton = styled.button``;
+const Divider = styled.hr`
+  border: 1px solid black;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0; 
+`;
