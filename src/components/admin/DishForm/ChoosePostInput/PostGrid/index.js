@@ -2,12 +2,22 @@ import styled from "@emotion/styled";
 
 import PostItem from "./PostItem";
 
-export default function PostGrid({ className, posts, onSelect, selectedPostID }) {
+export default function PostGrid({
+  className,
+  posts,
+  onSelect,
+  selectedPostID,
+}) {
   return (
     <Container>
       <GridContainer className={className}>
         {posts.map((post) => (
-          <PostItem key={post.id} post={post} selected={post.id === selectedPostID} onSelect={() => onSelect(post)} />
+          <PostItem
+            key={post.id}
+            post={post}
+            selected={post.id === selectedPostID}
+            onSelect={() => onSelect(post)}
+          />
         ))}
       </GridContainer>
     </Container>

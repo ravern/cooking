@@ -13,7 +13,7 @@ export default function Post({ selected, post, onSelect }) {
 const Container = styled.div`
   position: relative;
   border-radius: 0.8rem;
-  border: ${props => props.selected ? '0.2rem solid black' : 'none'};
+  border: ${(props) => (props.selected ? "0.2rem solid black" : "none")};
   overflow: hidden;
 
   &::before {

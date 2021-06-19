@@ -10,5 +10,5 @@ export default function AuthCallbackPage() {
     setTimeout(() => window.close(), 1000);
   }, []);
 
-  return <></>;
+  return null;
 }

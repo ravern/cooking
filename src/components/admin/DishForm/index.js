@@ -1,13 +1,15 @@
 import styled from "@emotion/styled";
-import { useEffect } from "react";
 import dynamic from "next/dynamic";
 
+import Button from "~/components/Button";
 import useForm from "~/hooks/useForm";
-import Button from "~/components/Button"
 
 import ChoosePostInput from "./ChoosePostInput";
 
-const RichTextEditor = dynamic(() => import("~/components/admin/RichTextEditor"), { ssr: false });
+const RichTextEditor = dynamic(
+  () => import("~/components/admin/RichTextEditor"),
+  { ssr: false }
+);
 
 export default function DishForm({
   values: initialValues,
@@ -30,10 +32,17 @@ export default function DishForm({
       <DetailsContainer>
         <DetailsTitle>Step 2: Fill in post details</DetailsTitle>
         <InputContainer>
-          <NameInput value={values.name} onChange={onChange("name")} placeholder="Name" />
+          <NameInput
+            value={values.name}
+            onChange={onChange("name")}
+            placeholder="Name"
+          />
         </InputContainer>
         <InputContainer>
-          <RichTextEditor initialValue={initialValues.body} onChange={onChange("body")} />
+          <RichTextEditor
+            initialValue={initialValues.body}
+            onChange={onChange("body")}
+          />
         </InputContainer>
       </DetailsContainer>
       {error && <ErrorMessage>{error.message}</ErrorMessage>}
@@ -98,5 +107,5 @@ const Divider = styled.hr`
   border: 1px solid black;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 0; 
+  margin-bottom: 0;
 `;

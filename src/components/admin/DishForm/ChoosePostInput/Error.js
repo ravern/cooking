@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { useCallback, useEffect } from "react";
 
+import Button from "~/components/Button";
 import { MESSAGE_AUTH_REFRESH } from "~/constants";
 import openAuthWindow from "~/helpers/openAuthWindow";
-import Button from "~/components/Button"
 
 export default function Error({ error, refetch }) {
   const handleAuthMessage = useCallback((e) => {

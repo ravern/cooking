@@ -23,7 +23,11 @@ export default function ChoosePostInput({ value, onChange }) {
       {!posts && !error && <span>Loading...</span>}
       {error && <Error error={error} refetch={refetch} />}
       {posts && (
-        <PostGrid posts={posts} onSelect={handleSelect} selectedPostID={value?.id} />
+        <PostGrid
+          posts={posts}
+          onSelect={handleSelect}
+          selectedPostID={value?.id}
+        />
       )}
     </Container>
   );
