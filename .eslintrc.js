@@ -1,36 +1,32 @@
 module.exports = {
-  parser: "babel-eslint",
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["simple-import-sort"],
-  env: {
-    node: true,
-    browser: true,
-  },
-  rules: {
-    "prettier/prettier": "error",
-    "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off",
-    "simple-import-sort/sort": [
-      "error",
-      {
-        groups: [["^\\u0000"], ["^@?\\w"], ["^~"], ["^\\."]],
-      },
-    ],
-  },
-  globals: {
-    React: "readable",
-    Promise: "readable",
-  },
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 2020,
     sourceType: "module",
     ecmaFeatures: {
       jsx: true,
     },
+  },
+  extends: [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+  ],
+  plugins: ["simple-import-sort"],
+  globals: {
+    Promise: true,
+  },
+  rules: {
+    "no-shadow": "off",
+    "no-catch-shadow": "off",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "simple-import-sort/imports": [
+      "error",
+      {
+        groups: [["^\\u0000"], ["^@?\\w"], ["^"], ["^\\."], ["^.+\\u0000$"]],
+      },
+    ],
+    "simple-import-sort/exports": "error",
   },
 };
