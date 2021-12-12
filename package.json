@@ -9,6 +9,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.1",
+    "@mui/material": "^5.2.3",
     "@supabase/supabase-js": "^1.28.5",
     "next": "12",
     "react": "17.0.2",
