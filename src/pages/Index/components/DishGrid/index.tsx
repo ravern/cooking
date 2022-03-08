@@ -1,63 +1,21 @@
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Chip,
-  Grid,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/material";
-import NextLink from "next/link";
+import { Grid } from "@mui/material";
 import React from "react";
-import { useSelect } from "react-supabase";
+
+import DishItem from "./components/DishItem";
 
 import type { Dish } from "~/api/models";
 
-export default function DishGrid(): JSX.Element | null {
-  const [{ data: dishes }] = useSelect<Dish>("dishes");
+export type DishGridProps = {
+  dishes: Dish[];
+};
 
-  if (dishes == null) {
-    return <>Loading...</>;
-  }
+export default function DishGrid({
+  dishes,
+}: DishGridProps): JSX.Element | null {
   return (
     <Grid container>
       {dishes.map((dish) => (
-        <Grid key={dish.id} item xs={12} sm={6} lg={3}>
-          <Card sx={{ marginRight: 2, marginBottom: 2 }}>
-            <CardMedia
-              component="img"
-              image={
-                dish.images[0] ??
-                "https://ciao.kitchen/wp-content/uploads/2021/06/CKT0887.jpg"
-              }
-              height="200"
-              alt={dish.title}
-            />
-            <CardContent>
-              <NextLink href="/dishes/1" passHref>
-                <Link color="inherit" underline="none">
-                  <Typography variant="h6" component="h2" fontWeight="bold">
-                    {dish.title}
-                  </Typography>
-                  <Typography variant="body2">{dish.subtitle}</Typography>
-                </Link>
-              </NextLink>
-            </CardContent>
-            <CardActions>
-              <Stack direction="row" sx={{ flexWrap: "wrap" }}>
-                {dish.tags.map((tag) => (
-                  <Chip
-                    key={tag}
-                    label={tag}
-                    sx={{ marginBottom: 1, marginRight: 1 }}
-                  />
-                ))}
-              </Stack>
-            </CardActions>
-          </Card>
-        </Grid>
+        <DishItem key={dish.id} dish={dish} />
       ))}
     </Grid>
   );
