@@ -12,7 +12,7 @@ export default function IndexPage(): JSX.Element | null {
       <Header />
       <Stack direction="row" spacing={2}>
         <TagList />
-        <Stack spacing={2}>
+        <Stack spacing={2} flex={1}>
           <Stack
             direction={{ xs: "column", sm: "column", md: "row" }}
             justifyContent="space-between"
