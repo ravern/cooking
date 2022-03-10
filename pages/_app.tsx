@@ -1,3 +1,5 @@
+import "~/index.css";
+
 import { CssBaseline } from "@mui/material";
 import Head from "next/head";
 import React from "react";

@@ -13,7 +13,7 @@ export default function DishGrid({
   dishes,
 }: DishGridProps): JSX.Element | null {
   return (
-    <Grid container>
+    <Grid container p={2} pr={0}>
       {dishes.map((dish) => (
         <DishItem key={dish.id} dish={dish} />
       ))}

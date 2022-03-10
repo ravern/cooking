@@ -6,18 +6,21 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useMemo } from "react";
-import { useSelect } from "react-supabase";
+import { useFilter, useSelect } from "react-supabase";
 
+import DishGrid from "~/components/DishGrid";
 import Header from "~/components/Header";
 
-import DishGrid from "./components/DishGrid";
 import TagList from "./components/TagList";
 import generateTags from "./helpers/generateTags";
 
 import type { Dish } from "~/api/models";
 
 export default function IndexPage(): JSX.Element | null {
-  const [{ data: dishes }] = useSelect<Dish>("dishes");
+  const filter = useFilter((query) =>
+    query.order("title", { ascending: false }).limit(30),
+  );
+  const [{ data: dishes }] = useSelect<Dish>("dishes", { filter });
 
   const tags = useMemo(
     () => (dishes != null ? generateTags(dishes) : null),
@@ -35,7 +38,7 @@ export default function IndexPage(): JSX.Element | null {
             justifyContent="space-between"
             alignItems={{ xs: "flex-start", sm: "flex-start", md: "flex-end" }}
             spacing={2}
-            pr={2}
+            px={2}
           >
             <Typography variant="h4" component="h1" fontWeight="bold">
               All Recipes
