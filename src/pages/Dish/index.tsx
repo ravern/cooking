@@ -29,7 +29,7 @@ export default function DishPage(): JSX.Element | null {
   const dish = dishes?.[0];
 
   const body =
-    dish?.body != null ? generateHTML(dish.body, [StarterKit]) : null;
+    dish?.body?.type != null ? generateHTML(dish.body, [StarterKit]) : null;
 
   console.log(body);
 
