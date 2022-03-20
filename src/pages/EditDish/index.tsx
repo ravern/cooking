@@ -8,20 +8,24 @@ import {
   TextField,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { useCallback } from "react";
-import { useFilter, useSelect, useUpdate } from "react-supabase";
+import React, { useCallback, useMemo } from "react";
+import { useClient, useFilter, useSelect, useUpdate } from "react-supabase";
 
 import AdminHeader from "~/components/AdminHeader";
+import uploadFile from "~/helpers/uploadFile";
 import useForm from "~/hooks/useForm";
 
+import ImageSelect from "./components/ImageSelect";
 import RichEditor from "./components/RichEditor";
 
+import type { Image } from "./components/ImageSelect";
 import type { Dish } from "~/api/models";
 
 export type EditDishFormValues = {
   title: string;
   subtitle: string;
   body: any;
+  images: Image[];
   tags: string[];
 };
 
@@ -29,6 +33,7 @@ const INITIAL_VALUES = {
   title: "",
   subtitle: "",
   body: {},
+  images: [],
   tags: [],
 };
 
@@ -48,19 +53,41 @@ export default function EditDishPage(): JSX.Element | null {
   const dish = dishes?.[0];
   const [, update] = useUpdate<Dish>("dishes");
 
+  const supabase = useClient();
+
   const handleSubmit = async ({
     title,
     subtitle,
     body,
     tags,
+    ...values
   }: EditDishFormValues) => {
-    await update({ title, subtitle, body, tags }, filter);
+    const images = await Promise.all(
+      values.images.map(async (image) => {
+        if (image.file == null) {
+          return image.src;
+        } else {
+          return await uploadFile(supabase, image.file);
+        }
+      }),
+    );
+    await update({ title, subtitle, images, body, tags }, filter);
     await reexecute();
   };
 
+  const initialValues = useMemo(() => {
+    if (dish == null) {
+      return INITIAL_VALUES;
+    }
+    return {
+      ...dish,
+      images: dish.images.map((src) => ({ src })),
+    };
+  }, [dish]);
+
   const { values, error, setValue, onChange, onSubmit } =
     useForm<EditDishFormValues>({
-      initialValues: dish ?? INITIAL_VALUES,
+      initialValues,
       onSubmit: handleSubmit,
     });
 
@@ -78,7 +105,9 @@ export default function EditDishPage(): JSX.Element | null {
     [setValue],
   );
 
-  console.log(values.tags);
+  const handleImagesChange = (value: Image[]) => {
+    setValue("images", value);
+  };
 
   if (dish == null) {
     return <CircularProgress />;
@@ -100,6 +129,7 @@ export default function EditDishPage(): JSX.Element | null {
           InputProps={{
             sx: { fontSize: "3rem", fontWeight: "bold" },
           }}
+          placeholder="Title"
           value={values.title}
           onChange={onChange("title")}
         />
@@ -107,6 +137,7 @@ export default function EditDishPage(): JSX.Element | null {
           variant="standard"
           fullWidth
           multiline
+          placeholder="Subtitle"
           value={values.subtitle}
           onChange={onChange("subtitle")}
         />
@@ -126,6 +157,7 @@ export default function EditDishPage(): JSX.Element | null {
           )}
           fullWidth
         />
+        <ImageSelect value={values.images} onChange={handleImagesChange} />
         <RichEditor initialValue={dish.body} onChange={handleEditorChange} />
         <Stack direction="row" spacing={2}>
           <Button variant="contained" sx={{ fontWeight: "bold" }} type="submit">
