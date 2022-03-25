@@ -2,12 +2,18 @@ import { Chip, Stack } from "@mui/material";
 import React from "react";
 
 export type TagListProps = {
+  selectedTags: string[];
   tags: string[];
+  onTagClick: (tag: string) => void;
 };
 
-export default function TagList({ tags }: TagListProps): JSX.Element | null {
-  const handleClick = () => {
-    console.log("test");
+export default function TagList({
+  selectedTags,
+  tags,
+  onTagClick,
+}: TagListProps): JSX.Element | null {
+  const handleClick = (tag: string) => () => {
+    onTagClick(tag);
   };
 
   return (
@@ -20,7 +26,12 @@ export default function TagList({ tags }: TagListProps): JSX.Element | null {
       }}
     >
       {tags.map((tag) => (
-        <Chip key={tag} variant="outlined" label={tag} onClick={handleClick} />
+        <Chip
+          key={tag}
+          variant={selectedTags.includes(tag) ? "filled" : "outlined"}
+          label={tag}
+          onClick={handleClick(tag)}
+        />
       ))}
     </Stack>
   );

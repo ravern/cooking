@@ -8,3 +8,7 @@ export type Dish = {
   created_at: string;
   updated_at: string;
 };
+
+export type Tag = {
+  name: string;
+};

@@ -5,33 +5,68 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useMemo } from "react";
+import { isEmpty } from "lodash";
+import React, { useState } from "react";
 import { useFilter, useSelect } from "react-supabase";
 
 import DishGrid from "~/components/DishGrid";
 import Header from "~/components/Header";
 
 import TagList from "./components/TagList";
-import generateTags from "./helpers/generateTags";
 
-import type { Dish } from "~/api/models";
+import type { Dish, Tag } from "~/api/models";
 
 export default function IndexPage(): JSX.Element | null {
-  const filter = useFilter((query) =>
-    query.order("title", { ascending: false }).limit(30),
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const [{ data: tags }] = useSelect<Tag>("tags");
+  const tagNames = tags?.map(({ name }) => name.trim());
+
+  const filter = useFilter(
+    (query) => {
+      const or = selectedTags.map((tag) => `tags.cs.{${tag}}`).join(",");
+      if (!isEmpty(or)) {
+        query = query.or(or);
+      }
+      if (!isEmpty(searchQuery)) {
+        query = query.or(
+          `title.like.*${searchQuery}*,subtitle.like.*${searchQuery}*`,
+        );
+      }
+      return query.order("title", { ascending: false }).limit(30);
+    },
+    [searchQuery, selectedTags],
   );
   const [{ data: dishes }] = useSelect<Dish>("dishes", { filter });
 
-  const tags = useMemo(
-    () => (dishes != null ? generateTags(dishes) : null),
-    [dishes],
-  );
+  const handleTagClick = (tag: string) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(
+        selectedTags.filter((selectedTag) => selectedTag !== tag),
+      );
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
 
   return (
     <Container maxWidth="lg">
       <Header />
       <Stack direction="row" spacing={2}>
-        {tags != null ? <TagList tags={tags} /> : <CircularProgress />}
+        {tagNames != null ? (
+          <TagList
+            selectedTags={selectedTags}
+            tags={tagNames}
+            onTagClick={handleTagClick}
+          />
+        ) : (
+          <CircularProgress />
+        )}
         <Stack spacing={2} flex={1}>
           <Stack
             direction={{ xs: "column", sm: "column", md: "row" }}
@@ -51,6 +86,8 @@ export default function IndexPage(): JSX.Element | null {
                 maxWidth: "100%",
                 width: 320,
               }}
+              value={searchQuery}
+              onChange={handleQueryChange}
             />
           </Stack>
           {dishes != null ? (
