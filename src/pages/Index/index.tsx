@@ -5,40 +5,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { isEmpty } from "lodash";
 import React, { useState } from "react";
-import { useFilter, useSelect } from "react-supabase";
 
 import DishGrid from "~/components/DishGrid";
 import Header from "~/components/Header";
 
 import TagList from "./components/TagList";
-
-import type { Dish, Tag } from "~/api/models";
+import useDishes from "./hooks/useDishes";
+import useTags from "./hooks/useTags";
 
 export default function IndexPage(): JSX.Element | null {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const [{ data: tags }] = useSelect<Tag>("tags");
-  const tagNames = tags?.map(({ name }) => name.trim());
-
-  const filter = useFilter(
-    (query) => {
-      const or = selectedTags.map((tag) => `tags.cs.{${tag}}`).join(",");
-      if (!isEmpty(or)) {
-        query = query.or(or);
-      }
-      if (!isEmpty(searchQuery)) {
-        query = query.or(
-          `title.like.*${searchQuery}*,subtitle.like.*${searchQuery}*`,
-        );
-      }
-      return query.order("title", { ascending: false }).limit(30);
-    },
-    [searchQuery, selectedTags],
-  );
-  const [{ data: dishes }] = useSelect<Dish>("dishes", { filter });
+  const { dishes } = useDishes({ searchQuery, selectedTags });
+  const { tags } = useTags();
 
   const handleTagClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
@@ -58,10 +39,10 @@ export default function IndexPage(): JSX.Element | null {
     <Container maxWidth="lg">
       <Header />
       <Stack direction="row" spacing={2}>
-        {tagNames != null ? (
+        {tags != null ? (
           <TagList
             selectedTags={selectedTags}
-            tags={tagNames}
+            tags={tags}
             onTagClick={handleTagClick}
           />
         ) : (
