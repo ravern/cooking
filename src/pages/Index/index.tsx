@@ -5,7 +5,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import DishGrid from "~/components/DishGrid";
 import Header from "~/components/Header";
@@ -18,8 +18,45 @@ export default function IndexPage(): JSX.Element | null {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const { dishes } = useDishes({ searchQuery, selectedTags });
+  const { dishes, fetching, fetchMore } = useDishes({
+    searchQuery,
+    selectedTags,
+  });
   const { tags } = useTags();
+
+  const [previousScroll, setPreviousScroll] = useState(9999);
+  const loadingRef = useRef<HTMLElement>(null);
+
+  const handleScroll = useCallback(
+    (entities: IntersectionObserverEntry[]) => {
+      if (entities[0].boundingClientRect.y < previousScroll && !fetching) {
+        setPreviousScroll(entities[0].boundingClientRect.y);
+        fetchMore();
+      }
+    },
+    [fetching, fetchMore, previousScroll, setPreviousScroll],
+  );
+
+  useEffect(() => {
+    if (loadingRef.current == null) {
+      return;
+    }
+
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
+    const observer = new IntersectionObserver(handleScroll, options);
+    observer.observe(loadingRef.current);
+
+    return () => {
+      if (loadingRef.current == null) {
+        return;
+      }
+      observer.unobserve(loadingRef.current);
+    };
+  }, [handleScroll, loadingRef.current]);
 
   const handleTagClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
@@ -72,7 +109,12 @@ export default function IndexPage(): JSX.Element | null {
             />
           </Stack>
           {dishes != null ? (
-            <DishGrid dishes={dishes} />
+            <>
+              <DishGrid dishes={dishes} />
+              <Stack direction="row" justifyContent="center" pb={4}>
+                <CircularProgress ref={loadingRef} />
+              </Stack>
+            </>
           ) : (
             <Stack flex={1} direction="row" justifyContent="center">
               <CircularProgress />

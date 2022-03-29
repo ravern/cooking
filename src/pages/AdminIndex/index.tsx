@@ -9,7 +9,7 @@ import type { Dish } from "~/api/models";
 
 export default function IndexPage(): JSX.Element | null {
   const filter = useFilter((query) =>
-    query.order("title", { ascending: false }).limit(30),
+    query.order("title", { ascending: false }),
   );
   const [{ data: dishes }] = useSelect<Dish>("dishes", { filter });
 
