@@ -13,8 +13,6 @@ export default function AdminLoginPage(): JSX.Element | null {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log(client.auth.session());
-
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
