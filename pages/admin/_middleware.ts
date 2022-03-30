@@ -9,7 +9,7 @@ export async function middleware(
   req: NextRequest,
   _event: NextFetchEvent,
 ): Promise<NextResponse> {
-  if (req.url === "/admin/login") {
+  if (req.nextUrl.pathname === "/admin/login") {
     return NextResponse.next();
   }
 
