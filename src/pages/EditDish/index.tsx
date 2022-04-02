@@ -19,7 +19,7 @@ import ImageSelect from "./components/ImageSelect";
 import RichEditor from "./components/RichEditor";
 
 import type { Image } from "./components/ImageSelect";
-import type { Dish } from "~/api/models";
+import type { Dish, Tag } from "~/api/models";
 
 export type EditDishFormValues = {
   title: string;
@@ -37,8 +37,6 @@ const INITIAL_VALUES = {
   tags: [],
 };
 
-const TAGS = [{ name: "Vegan" }, { name: "Fresh" }, { name: "Tasty" }];
-
 export default function EditDishPage(): JSX.Element | null {
   const router = useRouter();
   const id = Array.isArray(router.query.id)
@@ -52,6 +50,7 @@ export default function EditDishPage(): JSX.Element | null {
   });
   const dish = dishes?.[0];
   const [, update] = useUpdate<Dish>("dishes");
+  const [{ data: tags }] = useSelect<Tag>("tags");
 
   const supabase = useClient();
 
@@ -144,7 +143,7 @@ export default function EditDishPage(): JSX.Element | null {
         <Autocomplete
           multiple
           limitTags={3}
-          options={TAGS}
+          options={tags ?? []}
           getOptionLabel={(tag) => tag.name}
           isOptionEqualToValue={(leftTag, rightTag) =>
             leftTag.name === rightTag.name

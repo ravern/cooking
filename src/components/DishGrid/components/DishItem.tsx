@@ -22,8 +22,8 @@ export type DishItemProps = {
 export default function DishItem({ dish }: DishItemProps): JSX.Element | null {
   const router = useRouter();
 
-  const href = router.asPath.endsWith("/")
-    ? `${router.asPath}dishes/${dish.id}`
+  const href = router.asPath.includes("admin")
+    ? `${router.asPath}/${dish.id}`
     : `${router.asPath}/dishes/${dish.id}`;
 
   return (
