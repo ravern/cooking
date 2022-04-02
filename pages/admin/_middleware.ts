@@ -14,6 +14,7 @@ export async function middleware(
   }
 
   const token = req.cookies["sb:token"];
+  console.log({ token });
   if (!token) {
     return NextResponse.redirect("/admin/login", 302);
   }
@@ -25,7 +26,7 @@ export async function middleware(
     },
   });
   const body = await res.json();
-  console.log(body);
+  console.log({ body });
 
   if (res.status === 200 && body.aud === "authenticated") {
     return NextResponse.next();

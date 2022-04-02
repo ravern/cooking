@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useClient } from "react-supabase";
 
+import { updateAuthCookie } from "~/api";
+
 export default function AdminLoginPage(): JSX.Element | null {
   const router = useRouter();
   const client = useClient();
@@ -34,6 +36,10 @@ export default function AdminLoginPage(): JSX.Element | null {
       setError(error.message);
       return;
     }
+
+    // We need to set the cookie first, otherwise pushing /admin will just redirect
+    // back to /admin/login since the server-side can't tell that we're auth-ed.
+    await updateAuthCookie("SIGNED_IN", client.auth.session());
 
     router.push("/admin");
   };
