@@ -54,7 +54,7 @@ export default function AdminLoginPage(): JSX.Element | null {
           onSubmit={handleSubmit}
         >
           <Typography variant="h6" component="h1" fontWeight="bold">
-            Jenny&apos;s Cooking Admin
+            Cooking Admin
           </Typography>
           <TextField
             variant="outlined"

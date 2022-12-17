@@ -1,3 +1,3 @@
 # Cooking
 
-Cooking and recipe website for my mom.
+Cooking and recipe website.

@@ -7,7 +7,7 @@ export default function Logo(): JSX.Element | null {
     <Stack direction="row" spacing={0.5} alignItems="center">
       <OutdoorGrillIcon />
       <Typography variant="body1" fontWeight="bold">
-        Jenny&apos;s Cooking
+        Cooking
       </Typography>
     </Stack>
   );
